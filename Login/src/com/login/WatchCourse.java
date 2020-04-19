@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class WatchCourse
@@ -22,6 +23,7 @@ public class WatchCourse extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
+			HttpSession session=request.getSession();
 			String subject="";
 			Dao d=new Dao();
 			if(request.getParameter("watch").equals("Java")){
@@ -58,8 +60,12 @@ public class WatchCourse extends HttpServlet {
 							request.getRequestDispatcher("yourcourse.jsp").forward(request,response);
 				        }				     
 					}
-					request.setAttribute("subject",subject);
-					request.getRequestDispatcher("viewSession.jsp").forward(request,response);
+					session.setAttribute("subject",subject);
+					session.setAttribute("unique", "no");
+					session.setAttribute("uniqueCode",d.uniqueCode);
+					//request.setAttribute("subject",subject);
+					//request.getRequestDispatcher("viewSession.jsp").forward(request,response);
+					response.sendRedirect("viewSession.jsp");
 				}
 				else
 				{

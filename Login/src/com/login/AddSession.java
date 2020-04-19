@@ -20,9 +20,10 @@ public class AddSession extends HttpServlet {
 		  String subject = request.getParameter("subject");
 		  String date = request.getParameter("date");
 		  String time = request.getParameter("time");
+		  String uc=request.getParameter("uniqueCode");
 		  try {
 			Dao d=new Dao();
-			d.addSession(subject, date, time);
+			d.addSession(subject, date, time,uc);
 			request.setAttribute("message","Session Added Successfully!");
 			request.getRequestDispatcher("addSession.jsp").forward(request, response);
 		} catch (Exception e) {

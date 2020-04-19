@@ -3,6 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="styling/css/styleAddSession.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -18,33 +19,34 @@ if(session.getAttribute("username")==null){
 	response.setHeader("Expires","0");
 	response.setDateHeader("Expires",-1);
 	%>
-	<form method="post" action="AddSession" class="box">
-		<center>
-			<label for="subject">Choose subject:</label>
-			<select id="subject" name="subject">
-			  <option value="java" >Java</option>
-			  <option value="python">Python</option>
-			</select><br><br>
-			<label for="date">Enter date:</label>
-			  <input type="date" name="date"><br><br>
-			  <label for="time">Enter time:</label>
-			  <input type="time" name="time"><br><br>
-			  <input type="submit" value="Create Session">
-		</center>
+	
+	<div class="session">
+	<h3>Create the Session</h3>
+	<form action="AddSession" method="post">
+		<p>Choose Subject</p>
+		<select name="subject">
+			<option value="none" selected disabled hidden>Subjects</option>
+			<option value="java">Java</option>
+			<option value="Python">Python</option>
+		</select>
+		<p>Enter Date</p>
+			<input type="date" name="date" placeholder="yyyy-MM-dd" required>
+		<p>Enter Time</p>
+			<input type="time" name="time" placeholder="HH:mm"  required>
+		<p>Enter unique code</p>
+			<input type="text" name="uniqueCode" placeholder="Enter here" required><br><br>
+		<input type="submit" value="Create Session" class="createbtn"><br><br>
 	</form>
-	<form action="Logout">
-		<input type="submit" value="Logout">
+		<form action="Logout">
+		<input type="submit" value="Logout" class="logoutbtn">
 	</form>
-	<center>
-	<h5><%=request.getAttribute("message") %></h5>
-	</center>>
-	<style>
-	 .box{
-	 	top : 30%;
-	 	left : 30%;
-	 	position : absolute;
-	 	box-sizing : border-box;
-	 }
-	</style>
+	<%if(request.getAttribute("message")!=null){
+			%>
+			<h5>${message}</h5>
+			<% }%>
+	</div>
+	
+	
+
 </body>
 </html>

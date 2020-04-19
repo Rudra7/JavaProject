@@ -5,6 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+	body{
+  background : url("styling/css/image.jpg");
+	}
+</style>
 </head>
 <body>
 <center>
@@ -20,12 +25,29 @@ if(session.getAttribute("username")==null){
 	response.setDateHeader("Expires",-1);
 %>
 <%
-	if (request.getAttribute("subject").equals("python")){
+	if (session.getAttribute("unique").equals("no")){
+%>
+	<form method="post" action="Unique">
+	Unique Code:<input type="text" name="unique"><input type="submit" value="Submit">
+	</form>
+	<%if(request.getAttribute("message")!=null){
+			%>
+			<h5>${message}</h5>
+			<% }%>
+<%
+	}
+	else{
+%>
+<%
+	if (session.getAttribute("subject").equals("python")){
 %>
 	<iframe width="560" height="315" src="https://www.youtube.com/embed/YfO28Ihehbk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <%}else{%>
 	<iframe width="560" height="315" src="https://www.youtube.com/embed/eIrMbAQSU34" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <%} %>
+<%
+	}
+%>
 </center>
 </body>
 </html>

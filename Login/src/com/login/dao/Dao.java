@@ -5,6 +5,7 @@ public class Dao {
 	String url;
 	String uname;
 	String password;
+	public String uniqueCode;
 	public String date;
 	public String time;
 	public boolean python;
@@ -18,6 +19,7 @@ public class Dao {
 		this.con=DriverManager.getConnection(url,uname,password);
 		python=false;
 		java=false;
+		uniqueCode="";
 		date="";
 		time="";
 	}
@@ -62,12 +64,13 @@ public class Dao {
 		st.setString(1,uname);
 		int i=st.executeUpdate();
 	}
-	public void addSession(String subject,String date,String time) throws Exception{
-		String query="insert into session values(?,?,?)";
+	public void addSession(String subject,String date,String time,String uc) throws Exception{
+		String query="insert into session values(?,?,?,?)";
 		PreparedStatement st=con.prepareStatement(query);
 		st.setString(1,subject);
 		st.setString(2, date);
 		st.setString(3, time);
+		st.setString(4, uc);
 		int i=st.executeUpdate();
 	}
 	public void yourCourse(String uname) throws Exception{
@@ -96,6 +99,7 @@ public class Dao {
 		if (rs.next()){
 			date=rs.getString("date");
 			time=rs.getString("time");
+			uniqueCode=rs.getString("uniquecode");
 		}
 	}
 }
